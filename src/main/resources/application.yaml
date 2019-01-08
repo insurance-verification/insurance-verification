@@ -1,0 +1,45 @@
+﻿verificationsystem:
+  service:
+    prefix: ws
+  request:
+    policy-regex: 
+  response:
+    naic: 14044
+    future-days: 0
+    past-days: 180
+  cache:
+    vehicles:
+      heap_mb: 10
+      disk_mb: 50
+    policies:
+      heap_mb: 10
+      disk_mb: 50
+    storage_path: .
+  db:
+    table-name: Vehicle1
+    vehicle-query: 
+    vehicle-count-query: 
+    datasource:
+      hikari:
+        connection-test-query:
+  reload:
+    # reload automatically at 11:30 pm daily
+    #cron: 30 23 * * * *
+    # Dash is a special value for 'no schedule'
+    cron: '-'
+    on-start-up: false
+  log:
+    directory: ./logs
+    additional-config-path: /source/insurance-verification/system/email-config.xml
+  security:
+    ip-blocking: false
+    internal-trusted-ip: 127.0.0.1, 0:0:0:0:0:0:0:1, /10[.]0[.]\d+[.]\d+/
+    #trusted-ip: 127.0.0.1, 0:0:0:0:0:0:0:1, 10.0.15.47
+  audit:
+    request-table-name: IVS_AuditRequest
+    response-table-name: IVS_AuditResponse
+  shutdown:
+    allowed: 127.0.0.1,::1,0:0:0:0:0:0:0:1,10.254.209.101,10.254.209.102   
+jasypt:
+  encryptor:
+    password: Choose the right one:)

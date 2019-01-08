@@ -1,0 +1,48 @@
+verificationsystem:
+  cache:
+    vehicles:
+      heap_mb: 10
+      disk_mb: 50
+    policies:
+      heap_mb: 10
+      disk_mb: 50
+    storage_path: .
+  db:
+    table-name: Vehicle
+    read-batch-size: 5000
+    datasource:
+      url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password: sa
+      driver-class-name: org.h2.Driver
+      schema:
+        - classpath:/schema.sql
+      data:
+        - classpath:/data.sql
+  reload:
+    cron: 0 0 * * * *
+    on-start-up: true
+  log:
+    directory: ./logs
+    additional-config-path: C:/Users/Евгений/Desktop/Verification-system/build/email-config.xml
+  security:
+    trusted-ip: 127.0.0.1, 128.0.0.1
+  audit:
+    request-table-name: AuditRequest
+    response-table-name: AuditResponse
+    datasource:
+      url: jdbc:h2:mem:test2;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password: sa
+      driver-class-name: org.h2.Driver
+      schema:
+        - classpath:/audit-schema.sql
+  # server:
+  # port: 8443
+    # ssl:
+    # key-store: classpath:cert/keystore.jks
+    # key-store-password: password
+    # key-alias: selfsigned
+    # trust-store: classpath:cert/truststore.jks
+    # trust-store-password: password
+    # client-auth: need

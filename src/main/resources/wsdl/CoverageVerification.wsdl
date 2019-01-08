@@ -1,0 +1,1458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s0="http://www.iicmva.com/CoverageVerification/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.iicmva.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.iicmva.com/">
+	<wsdl:types>
+		<s:schema elementFormDefault="qualified" targetNamespace="http://www.iicmva.com/CoverageVerification/">
+			<s:element name="CoverageRequest">
+				<s:annotation>
+					<s:documentation>Allows an interested party to request and receive information from another party. | This document is used to request and respond to an insurance coverage inquiry between insurance companies and interested parties such as state supported motor vehicle departments and their agencies.</s:documentation>
+				</s:annotation>
+				<s:complexType>
+					<s:sequence>
+						<s:element name="RequestorInformation" type="s0:RequestorInformationModule" minOccurs="0">
+							<s:annotation>
+								<s:documentation>Defines the party requesting the insurance information.</s:documentation>
+							</s:annotation>
+						</s:element>
+						<s:element name="Detail">
+							<s:complexType>
+								<s:sequence>
+									<s:element name="PolicyInformation" type="s0:CoveragePolicyRequestModule">
+										<s:annotation>
+											<s:documentation>Defines the information needed to identify the message and the insurance policy that information is being requested for.</s:documentation>
+										</s:annotation>
+									</s:element>
+									<s:element name="InsuredInformation" type="s0:InsuredModule" minOccurs="0">
+										<s:annotation>
+											<s:documentation>Describes the party information is being requested on.</s:documentation>
+										</s:annotation>
+									</s:element>
+									<s:element name="VehicleInformation" type="s0:RiskInformationModule" minOccurs="0">
+										<s:annotation>
+											<s:documentation>Defines the information used to identify a risk.</s:documentation>
+										</s:annotation>
+									</s:element>
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+					</s:sequence>
+					<s:attribute name="PublicationVersion" type="s0:PublicationVersionType" use="required"/>
+					<s:attribute name="PublicationDate" type="s:date" use="required"/>
+				</s:complexType>
+			</s:element>
+			<s:element name="CoverageResponseDocument">
+				<s:annotation>
+					<s:documentation>Allows an interested party to request and receive information from another party. | This document is used to respond to an insurance coverage inquiry between Insurance Companies and interested parties such as state supported Motor Vehicle Departments and their agencies.</s:documentation>
+				</s:annotation>
+				<s:complexType>
+					<s:sequence>
+						<s:element name="RequestorInformation" type="s0:RequestorInformationModule" minOccurs="0">
+							<s:annotation>
+								<s:documentation>Defines the party requesting the insurance information.</s:documentation>
+							</s:annotation>
+						</s:element>
+						<s:element name="Detail">
+							<s:complexType>
+								<s:sequence>
+									<s:element name="PolicyInformation" type="s0:CoveragePolicyResponseModule">
+										<s:annotation>
+											<s:documentation>The information needed to provide a response to a policy inquiry.</s:documentation>
+										</s:annotation>
+									</s:element>
+									<s:element name="InsuredInformation" type="s0:InsuredModule" minOccurs="0">
+										<s:annotation>
+											<s:documentation>Describes the party information is being requested on.</s:documentation>
+										</s:annotation>
+									</s:element>
+									<s:element name="VehicleInformation" type="s0:RiskInformationModule" minOccurs="0">
+										<s:annotation>
+											<s:documentation>Defines the information used to identify a risk.</s:documentation>
+										</s:annotation>
+									</s:element>
+								</s:sequence>
+							</s:complexType>
+						</s:element>
+					</s:sequence>
+					<s:attribute name="PublicationVersion" type="s0:PublicationVersionType" use="required"/>
+					<s:attribute name="PublicationDate" type="s:date" use="required"/>
+				</s:complexType>
+			</s:element>
+			<!-- ==========  Modules ========== -->
+			<s:complexType name="RequestorInformationModule">
+				<s:annotation>
+					<s:documentation>Defines the party requesting the insurance information.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:choice>
+						<s:sequence>
+							<s:element name="Individual" type="s0:IndividualBlock_2">
+								<s:annotation>
+									<s:documentation>Defines the individual requesting the insurance information.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Organization" type="s0:OrganizationBlock_3" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Description not provided</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+						<s:sequence>
+							<s:element name="Organization" type="s0:OrganizationBlock_3">
+								<s:annotation>
+									<s:documentation>Description not provided</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+					</s:choice>
+					<s:element name="ReasonDetails" type="s0:DocumentDetailBlock_2" minOccurs="0">
+						<s:annotation>
+							<s:documentation>Description not provided</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="InsuredModule">
+				<s:annotation>
+					<s:documentation>Describes the party information is being requested on.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:element name="PrimaryNameInformation" type="s0:IndividualBlock_3">
+						<s:annotation>
+							<s:documentation>The name of the party that insurance information is being requested on.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="AdditionalNamesInformation" type="s0:IndividualBlock_3" minOccurs="0" maxOccurs="20">
+						<s:annotation>
+							<s:documentation>The name of additional individuals listed as members of the household.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="Address" type="s0:AddressBlock_1">
+						<s:annotation>
+							<s:documentation>Describes what is commonly known as the mailing address on the policy.</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="RiskInformationModule">
+				<s:annotation>
+					<s:documentation>Defines the information used to identify a risk.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:element name="VehicleDetails" type="s0:ResourceIdentificationBlock_1">
+						<s:annotation>
+							<s:documentation>Defines the information used to identify a specific vehicle.</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="CoveragePolicyRequestModule">
+				<s:annotation>
+					<s:documentation>Defines the information needed to identify the message and the insurance policy that information is being requested for.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:element name="OrganizationDetails" type="s0:OrganizationBlock_4">
+						<s:annotation>
+							<s:documentation>Description not provided</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="PolicyDetails" type="s0:DocumentDetailBlock_3">
+						<s:annotation>
+							<s:documentation>Description not provided</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="BodilyInjuryCoverage" type="s0:AmountBlock_1" minOccurs="0" maxOccurs="2">
+						<s:annotation>
+							<s:documentation>Description not provided</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="PropertyDamageCoverage" type="s0:AmountBlock_1" minOccurs="0">
+						<s:annotation>
+							<s:documentation>Description not provided</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="CoveragePolicyResponseModule">
+				<s:annotation>
+					<s:documentation>The information needed to provide a response to a policy inquiry.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:element name="CoverageStatus" type="s0:StatusInformationBlock_4">
+						<s:annotation>
+							<s:documentation>Describes the status of the coverage for the policy listed in the inquiry.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="OrganizationDetails" type="s0:OrganizationBlock_4">
+						<s:annotation>
+							<s:documentation>Information provided to identify the insurance company.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="PolicyDetails" type="s0:DocumentDetailBlock_3">
+						<s:annotation>
+							<s:documentation>The specific items that identify an insurance policy.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="BodilyInjuryCoverage" type="s0:AmountBlock_1" minOccurs="0" maxOccurs="2">
+						<s:annotation>
+							<s:documentation>Identifies how the coverage will be paid.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="PropertyDamageCoverage" type="s0:AmountBlock_1" minOccurs="0">
+						<s:annotation>
+							<s:documentation>Identifies how the coverage will be paid.</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<!-- ==========  Assemblies ========== -->
+			<!-- ==========  Blocks ========== -->
+			<s:complexType name="AmountBlock_1">
+				<s:annotation>
+					<s:documentation>Describes the value and purpose of a monetary amount. Can also optionally include the value and reason for adjustments to an amount.  All concrete amount blocks must clearly state the purpose and effect of adjustments (indicate if an amount includes an ad | Describes coverage limit configurations and maximum payment amounts for an insurance loss.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:element name="TypeofLimit" type="s0:ResourceCode_9">
+						<s:annotation>
+							<s:documentation>Specifies how the coverage amount will be applied.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="CoverageAmount" type="s0:Amount_1">
+						<s:annotation>
+							<s:documentation>The amount of coverage.</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="ResourceIdentificationBlock_1">
+				<s:annotation>
+					<s:documentation>Combination of constructs that together identify a specific resource. | The terms used to specifically describe a vehicle.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:element name="VIN" type="s0:ResourceIdentifier_11">
+						<s:annotation>
+							<s:documentation>The Vehicle Identification Number is a  unique number the vehicle manufacturer assigns to a specific vehicle to provide identification for that specific vehicle.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="Make" type="s0:ResourceIdentifier_12" minOccurs="0">
+						<s:annotation>
+							<s:documentation>Describes the manufacturer of the vehicle.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="Model" type="s0:ResourceIdentifier_12" minOccurs="0">
+						<s:annotation>
+							<s:documentation>Describes the "kind " of vehicle a manufacturer makes.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="Year" type="s0:DateTimeText_2" minOccurs="0">
+						<s:annotation>
+							<s:documentation>Four position designation of the year expressed as CCYY.</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="StatusInformationBlock_4">
+				<s:annotation>
+					<s:documentation>Describes a specific status | Describes the status of the coverage for the policy listed in the inquiry.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:element name="ResponseDetails" type="s0:ParsedStatusComponent_3">
+						<s:annotation>
+							<s:documentation>Describes the result of the inquiry.</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="DocumentDetailBlock_2">
+				<s:annotation>
+					<s:documentation>Specifies a logical or physical document level of contextual information, unique identification number, creation date, etc. | Defines the reason the requestor needs the insurance information.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:element name="ReasonCode" type="s0:ReasonCode_1">
+						<s:annotation>
+							<s:documentation>The code identifying the reason why the request is needed.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="TrackingNumber" type="s0:ResourceIdentifier_12" minOccurs="0">
+						<s:annotation>
+							<s:documentation>Unique identifier assigned by the Requestor.</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="DocumentDetailBlock_3">
+				<s:annotation>
+					<s:documentation>Specifies a logical or physical document level of contextual information, unique identification number, creation date, etc. | The specific items that identify an insurance policy</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:element name="VerificationDate" type="s0:DateTime_1">
+						<s:annotation>
+							<s:documentation>Date that the requestor is attempting to verify coverage for.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="PolicyKey" type="s0:ResourceIdentifier_12">
+						<s:annotation>
+							<s:documentation>The unique number assigned to identify the insurance policy.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="PolicyState" type="s0:ResourceIdentifier_14">
+						<s:annotation>
+							<s:documentation>The state where the policy is assigned.</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="AddressBlock_1">
+				<s:annotation>
+					<s:documentation>Grouping of information used to specify the location address. | Describes what is commonly known as the mailing address.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:choice>
+						<s:sequence>
+							<s:element name="StreetAddress" type="s0:LocationText_9" maxOccurs="2">
+								<s:annotation>
+									<s:documentation>Specifies the set of details required to fully delineate a street number, as used in postal addressing schemes.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="SubsiteAddress" type="s0:SubsiteAddressComponent_1" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Detailed breakout of the information that is often found on the address lines of a mailing address such as apartment, building, department, floor, mail stop, room, and suite.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="City" type="s0:LocationText_1" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Text identifying a city.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="CountrySubdivision" type="s0:LocationCode_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Text identifying a city.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="PostalCode" type="s0:LocationIdentifier_1" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Defines international postal code.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Country" type="s0:LocationCode_3" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Code identifying a country.</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+						<s:sequence>
+							<s:element name="SubsiteAddress" type="s0:SubsiteAddressComponent_1">
+								<s:annotation>
+									<s:documentation>Detailed breakout of the information that is often found on the address lines of a mailing address such as apartment, building, department, floor, mail stop, room, and suite.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="City" type="s0:LocationText_1" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Text identifying a city.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="CountrySubdivision" type="s0:LocationCode_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Text identifying a city.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="PostalCode" type="s0:LocationIdentifier_1" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Defines international postal code.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Country" type="s0:LocationCode_3" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Code identifying a country.</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+						<s:sequence>
+							<s:element name="City" type="s0:LocationText_1">
+								<s:annotation>
+									<s:documentation>Text identifying a city.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="CountrySubdivision" type="s0:LocationCode_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Text identifying a city.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="PostalCode" type="s0:LocationIdentifier_1" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Defines international postal code.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Country" type="s0:LocationCode_3" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Code identifying a country.</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+						<s:sequence>
+							<s:element name="CountrySubdivision" type="s0:LocationCode_2">
+								<s:annotation>
+									<s:documentation>Text identifying a city.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="PostalCode" type="s0:LocationIdentifier_1" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Defines international postal code.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Country" type="s0:LocationCode_3" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Code identifying a country.</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+						<s:sequence>
+							<s:element name="PostalCode" type="s0:LocationIdentifier_1">
+								<s:annotation>
+									<s:documentation>Defines international postal code.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Country" type="s0:LocationCode_3" minOccurs="0">
+								<s:annotation>
+									<s:documentation>Code identifying a country.</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+						<s:sequence>
+							<s:element name="Country" type="s0:LocationCode_3">
+								<s:annotation>
+									<s:documentation>Code identifying a country.</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+					</s:choice>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="IndividualBlock_2">
+				<s:annotation>
+					<s:documentation>Identifies the role and identity of an individual. | Defines the individual requesting the  information.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:choice>
+						<s:element name="ParsedName" type="s0:IndividualNameComponent_2" minOccurs="0">
+							<s:annotation>
+								<s:documentation>Name of the individual requesting the insurance information.</s:documentation>
+							</s:annotation>
+						</s:element>
+						<s:element name="Name" type="s0:NameText_1" minOccurs="0">
+							<s:annotation>
+								<s:documentation>The full name of the individual.</s:documentation>
+							</s:annotation>
+						</s:element>
+					</s:choice>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="IndividualBlock_3">
+				<s:annotation>
+					<s:documentation>Identifies the role and identity of an individual. | Defines the party that that information is being requested on.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:choice>
+						<s:sequence>
+							<s:element name="ParsedName" type="s0:IndividualNameComponent_2">
+								<s:annotation>
+									<s:documentation>The name of the party that information is being requested on.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Name" type="s0:NameText_1" minOccurs="0">
+								<s:annotation>
+									<s:documentation>The full name of the party.</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+						<s:sequence>
+							<s:element name="Name" type="s0:NameText_1">
+								<s:annotation>
+									<s:documentation>The full name of the party.</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+					</s:choice>
+					<s:element name="SocialSecurityNumber" type="s0:PartyIdentifier_9" minOccurs="0">
+						<s:annotation>
+							<s:documentation>The unique number assigned to an individual by the U.S Social Security Administration federal agency.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="DriversLicense" type="s0:PartyIdentifier_8" minOccurs="0">
+						<s:annotation>
+							<s:documentation>The unique number assigned to an individual by each U.S state's Department of Motor Vehicles.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="FEIN" type="s0:PartyIdentifier_8" minOccurs="0">
+						<s:annotation>
+							<s:documentation>The unique number assigned to a company by the U.S. Federal Government.</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="OrganizationBlock_3">
+				<s:annotation>
+					<s:documentation>Specifies the role and identity of an organization. | Defines the organization requesting the information.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:element name="Name" type="s0:NameText_1">
+						<s:annotation>
+							<s:documentation>Name of the organization requesting the information</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="OrganizationBlock_4">
+				<s:annotation>
+					<s:documentation>Specifies the role and identity of an organization. | Information provided to identify the insurance company.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:element name="NAIC" type="s0:PartyIdentifier_18">
+						<s:annotation>
+							<s:documentation>The unique number assigned to each insurance company by the National Association of Insurance Commissioners.</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<!-- ==========  Components ========== -->
+			<s:complexType name="ParsedStatusComponent_3">
+				<s:annotation>
+					<s:documentation>Details of a status. | Describes the result of the inquiry.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:element name="ResponseCode" type="s0:EventCode_7">
+						<s:annotation>
+							<s:documentation>Describes the result of an inquiry.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="UnconfirmedReasonCode" type="s0:EventCode_8" minOccurs="0" maxOccurs="5">
+						<s:annotation>
+							<s:documentation>Describes the reason for an unconfirmed response.</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="SubsiteAddressComponent_1">
+				<s:annotation>
+					<s:documentation>Detailed breakout of the information that is often found on the Address Lines of a mailing address such as apartment, building, department, floor, mail stop, room, and suite. | Detailed breakout of the information that is often found on the address lines of a mailing address such as apartment, building, department, floor, mail stop, room, or suite.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:choice>
+						<s:sequence>
+							<s:element name="Apartment" type="s0:LocationText_2">
+								<s:annotation>
+									<s:documentation>A single residence in a multi unit dwelling.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Building" type="s0:LocationText_7" minOccurs="0">
+								<s:annotation>
+									<s:documentation>A single structure.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Department" type="s0:LocationText_7" minOccurs="0">
+								<s:annotation>
+									<s:documentation>A distinct usually specified division of a large organization.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Floor" type="s0:LocationText_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>A story or level of a building.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Room" type="s0:LocationText_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>An area seperated by walls or partitions from other similar parts of the building in which it is located.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Suite" type="s0:LocationText_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>A series of connected rooms used as a living unit.</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+						<s:sequence>
+							<s:element name="Building" type="s0:LocationText_7">
+								<s:annotation>
+									<s:documentation>A single structure.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Department" type="s0:LocationText_7" minOccurs="0">
+								<s:annotation>
+									<s:documentation>A distinct usually specified division of a large organization.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Floor" type="s0:LocationText_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>A story or level of a building.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Room" type="s0:LocationText_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>An area seperated by walls or partitions from other similar parts of the building in which it is located.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Suite" type="s0:LocationText_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>A series of connected rooms used as a living unit.</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+						<s:sequence>
+							<s:element name="Department" type="s0:LocationText_7">
+								<s:annotation>
+									<s:documentation>A distinct usually specified division of a large organization.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Floor" type="s0:LocationText_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>A story or level of a building.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Room" type="s0:LocationText_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>An area seperated by walls or partitions from other similar parts of the building in which it is located.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Suite" type="s0:LocationText_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>A series of connected rooms used as a living unit.</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+						<s:sequence>
+							<s:element name="Floor" type="s0:LocationText_2">
+								<s:annotation>
+									<s:documentation>A story or level of a building.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Room" type="s0:LocationText_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>An area seperated by walls or partitions from other similar parts of the building in which it is located.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Suite" type="s0:LocationText_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>A series of connected rooms used as a living unit.</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+						<s:sequence>
+							<s:element name="Room" type="s0:LocationText_2">
+								<s:annotation>
+									<s:documentation>An area seperated by walls or partitions from other similar parts of the building in which it is located.</s:documentation>
+								</s:annotation>
+							</s:element>
+							<s:element name="Suite" type="s0:LocationText_2" minOccurs="0">
+								<s:annotation>
+									<s:documentation>A series of connected rooms used as a living unit.</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+						<s:sequence>
+							<s:element name="Suite" type="s0:LocationText_2">
+								<s:annotation>
+									<s:documentation>A series of connected rooms used as a living unit.</s:documentation>
+								</s:annotation>
+							</s:element>
+						</s:sequence>
+					</s:choice>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="IndividualNameComponent_2">
+				<s:annotation>
+					<s:documentation>Grouping of information that is used to specify an individual's name. | Name of the individual.</s:documentation>
+				</s:annotation>
+				<s:sequence>
+					<s:element name="Prefix" type="s0:NameText_2" minOccurs="0">
+						<s:annotation>
+							<s:documentation>A word or phrase that constitutes the distinctive designation of a person, place, thing, or concept.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="GivenName" type="s0:NameText_4">
+						<s:annotation>
+							<s:documentation>A word or phrase that constitutes the distinctive designation of a person, place, thing, or concept.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="MiddleName" type="s0:NameText_5" minOccurs="0">
+						<s:annotation>
+							<s:documentation>A word or phrase that constitutes the distinctive designation of a person, place, thing, or concept.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="Surname" type="s0:NameText_6" maxOccurs="2">
+						<s:annotation>
+							<s:documentation>A word or phrase that constitutes the distinctive designation of a person, place, thing, or concept.</s:documentation>
+						</s:annotation>
+					</s:element>
+					<s:element name="Suffix" type="s0:NameText_2" minOccurs="0">
+						<s:annotation>
+							<s:documentation>A word or phrase that constitutes the distinctive designation of a person, place, thing, or concept.</s:documentation>
+						</s:annotation>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<!-- ==========  Primitives ========== -->
+			<s:complexType name="Amount_1">
+				<s:annotation>
+					<s:documentation>A monetary amount. | The sum of dollars and cents that will be paid in a loss.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:Amount_1_Content">
+						<s:attribute name="CurrencyIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="CurrencyCodeListVersionIdentifier" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="Amount_1_Content">
+				<s:restriction base="s:decimal">
+					<s:totalDigits value="10"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="LocationIdentifier_1">
+				<s:annotation>
+					<s:documentation>An identifier that designates a place. | Defines international postal code.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:LocationIdentifier_1_Content">
+						<s:attribute name="IDSchemeIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeNameText" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeAgencyIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeAgencyNameText" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeVersionIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeDataURI" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeURI" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="LocationIdentifier_1_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="3"/>
+					<s:maxLength value="15"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="LocationText_1">
+				<s:annotation>
+					<s:documentation>A word or phrase that describes a position or site. | A word or phrase that describes a position or site.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:LocationText_1_Content">
+						<s:attribute name="LanguageIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageLocaleIdentifier" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="LocationText_1_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="2"/>
+					<s:maxLength value="30"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="LocationText_2">
+				<s:annotation>
+					<s:documentation>A word or phrase that describes a position or site. | A specific identifier on a public way or thoroughfare.  i.e. Street Number.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:LocationText_2_Content">
+						<s:attribute name="LanguageIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageLocaleIdentifier" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="LocationText_2_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="1"/>
+					<s:maxLength value="20"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="LocationText_7">
+				<s:annotation>
+					<s:documentation>A word or phrase that describes a position or site. | A word or phrase that describes a position or site.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:LocationText_7_Content">
+						<s:attribute name="LanguageIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageLocaleIdentifier" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="LocationText_7_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="1"/>
+					<s:maxLength value="55"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="LocationText_9">
+				<s:annotation>
+					<s:documentation>A word or phrase that describes a position or site. | A word or phrase that describes a position or site.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:LocationText_9_Content">
+						<s:attribute name="LanguageIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageLocaleIdentifier" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="LocationText_9_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="1"/>
+					<s:maxLength value="80"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="LocationCode_2">
+				<s:annotation>
+					<s:documentation>A list of codes that designates a place. | The highest level of subdivision within a country.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:LocationCode_2_Content">
+						<s:attribute name="ListIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="ListAgencyIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="ListAgencyNameText" type="s:string" use="optional"/>
+						<s:attribute name="ListNameText" type="s:string" use="optional"/>
+						<s:attribute name="ListVersionIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageIdentifier" type="s:token" use="optional"/>
+						<s:attribute name="ListURI" type="s:string" use="optional"/>
+						<s:attribute name="ListSchemeURI" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="LocationCode_2_Content">
+				<s:restriction base="s:token">
+					<s:minLength value="1"/>
+					<s:maxLength value="3"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="LocationCode_3">
+				<s:annotation>
+					<s:documentation>A list of codes that designates a place. | Code identifying a country.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:LocationCode_3_Content">
+						<s:attribute name="ListIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="ListAgencyIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="ListAgencyNameText" type="s:string" use="optional"/>
+						<s:attribute name="ListNameText" type="s:string" use="optional"/>
+						<s:attribute name="ListVersionIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageIdentifier" type="s:token" use="optional"/>
+						<s:attribute name="ListURI" type="s:string" use="optional"/>
+						<s:attribute name="ListSchemeURI" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="LocationCode_3_Content">
+				<s:restriction base="s:token">
+					<s:minLength value="2"/>
+					<s:maxLength value="3"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="NameText_1">
+				<s:annotation>
+					<s:documentation>A word or phrase that constitutes the distinctive designation of a person or thing. | A word or phrase that designates a person or thing.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:NameText_1_Content">
+						<s:attribute name="LanguageIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageLocaleIdentifier" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="NameText_1_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="1"/>
+					<s:maxLength value="80"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="NameText_2">
+				<s:annotation>
+					<s:documentation>A word or phrase that constitutes the distinctive designation of a person or thing. | The title before an individual's name.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:NameText_2_Content">
+						<s:attribute name="LanguageIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageLocaleIdentifier" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="NameText_2_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="1"/>
+					<s:maxLength value="10"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="NameText_4">
+				<s:annotation>
+					<s:documentation>A word or phrase that constitutes the distinctive designation of a person or thing. | A word or phrase that designates a person or thing.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:NameText_4_Content">
+						<s:attribute name="LanguageIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageLocaleIdentifier" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="NameText_4_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="1"/>
+					<s:maxLength value="35"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="NameText_5">
+				<s:annotation>
+					<s:documentation>A word or phrase that constitutes the distinctive designation of a person or thing. | A word or phrase that designates a person or thing.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:NameText_5_Content">
+						<s:attribute name="LanguageIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageLocaleIdentifier" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="NameText_5_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="1"/>
+					<s:maxLength value="25"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="NameText_6">
+				<s:annotation>
+					<s:documentation>A word or phrase that constitutes the distinctive designation of a person or thing. | A word or phrase that designates a person or thing.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:NameText_6_Content">
+						<s:attribute name="LanguageIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageLocaleIdentifier" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="NameText_6_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="1"/>
+					<s:maxLength value="60"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="PartyIdentifier_18">
+				<s:annotation>
+					<s:documentation>Identifier which uniquely specifies a party, either an Individual or an Organization. | The code created by the National Association of Insurance Commissioners (NAIC) to identify an Insurance company.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:PartyIdentifier_18_Content">
+						<s:attribute name="IDSchemeIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeNameText" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeAgencyIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeAgencyNameText" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeVersionIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeDataURI" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeURI" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="PartyIdentifier_18_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="2"/>
+					<s:maxLength value="20"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="PartyIdentifier_8">
+				<s:annotation>
+					<s:documentation>Identifier which uniquely specifies a party, either an Individual or an Organization. | A unique number assigned to identify a party</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:PartyIdentifier_8_Content">
+						<s:attribute name="IDSchemeIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeNameText" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeAgencyIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeAgencyNameText" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeVersionIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeDataURI" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeURI" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="PartyIdentifier_8_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="1"/>
+					<s:maxLength value="50"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="PartyIdentifier_9">
+				<s:annotation>
+					<s:documentation>Identifier which uniquely specifies a party, either an Individual or an Organization. | A unique number assigned to identify a party.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:PartyIdentifier_9_Content">
+						<s:attribute name="IDSchemeIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeNameText" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeAgencyIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeAgencyNameText" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeVersionIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeDataURI" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeURI" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="PartyIdentifier_9_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="9"/>
+					<s:maxLength value="9"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="DateTime_1">
+				<s:annotation>
+					<s:documentation>Specifies a date and/or time | Date and/or Time.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s:dateTime"/>
+				</s:simpleContent>
+			</s:complexType>
+			<s:complexType name="ResourceCode_9">
+				<s:annotation>
+					<s:documentation>Specifies a supply or support. i.e. material or service. | Specifies how the coverage amount will be applied, ie. combined single limits, per person/per occurrence.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:ResourceCode_9_Content">
+						<s:attribute name="ListIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="ListAgencyIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="ListAgencyNameText" type="s:string" use="optional"/>
+						<s:attribute name="ListNameText" type="s:string" use="optional"/>
+						<s:attribute name="ListVersionIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageIdentifier" type="s:token" use="optional"/>
+						<s:attribute name="ListURI" type="s:string" use="optional"/>
+						<s:attribute name="ListSchemeURI" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="ResourceCode_9_Content">
+				<s:restriction base="s:token">
+					<s:enumeration value="CombinedSingleLimit">
+						<s:annotation>
+							<s:documentation>Combined Single Limit</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="PerOccurrence">
+						<s:annotation>
+							<s:documentation>Per Occurrence</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="PerPerson">
+						<s:annotation>
+							<s:documentation>Per Person</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="ResourceIdentifier_11">
+				<s:annotation>
+					<s:documentation>Specified a supply or support, i.e. material or service. | A unique number assigned to identify a vehicle.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:ResourceIdentifier_11_Content">
+						<s:attribute name="IDSchemeIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeNameText" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeAgencyIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeAgencyNameText" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeVersionIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeDataURI" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeURI" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="ResourceIdentifier_11_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="1"/>
+					<s:maxLength value="30"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="ResourceIdentifier_12">
+				<s:annotation>
+					<s:documentation>Specified a supply or support, i.e. material or service. | Identifies information about the risk.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:ResourceIdentifier_12_Content">
+						<s:attribute name="IDSchemeIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeNameText" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeAgencyIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeAgencyNameText" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeVersionIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeDataURI" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeURI" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="ResourceIdentifier_12_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="1"/>
+					<s:maxLength value="50"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="ResourceIdentifier_14">
+				<s:annotation>
+					<s:documentation>Specified a supply or support, i.e. material or service. | Identifies the state where the policy is insured.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:ResourceIdentifier_14_Content">
+						<s:attribute name="IDSchemeIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeNameText" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeAgencyIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeAgencyNameText" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeVersionIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeDataURI" type="s:string" use="optional"/>
+						<s:attribute name="IDSchemeURI" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="ResourceIdentifier_14_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="2"/>
+					<s:maxLength value="2"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="ReasonCode_1">
+				<s:annotation>
+					<s:documentation>Something that supports a conclusion or explains a fact.  Describes or specifies the statement offered in explanation or justification or motivation.  May answer the question why. | The code identifying the reason why the request is needed.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:ReasonCode_1_Content">
+						<s:attribute name="ListIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="ListAgencyIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="ListAgencyNameText" type="s:string" use="optional"/>
+						<s:attribute name="ListNameText" type="s:string" use="optional"/>
+						<s:attribute name="ListVersionIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageIdentifier" type="s:token" use="optional"/>
+						<s:attribute name="ListURI" type="s:string" use="optional"/>
+						<s:attribute name="ListSchemeURI" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="ReasonCode_1_Content">
+				<s:restriction base="s:token">
+					<s:enumeration value="ACC">
+						<s:annotation>
+							<s:documentation>Accident</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="ACCV">
+						<s:annotation>
+							<s:documentation>Traffic Violation with Accident</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="BIVER">
+						<s:annotation>
+							<s:documentation>Bodily Injury (BI) Coverage Verification</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="PIPVER">
+						<s:annotation>
+							<s:documentation>Personal Injury Protection (PIP) Coverage Verification</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="REGREN">
+						<s:annotation>
+							<s:documentation>Registration Renewal</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="VEHREG">
+						<s:annotation>
+							<s:documentation>Registration of Vehicle</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="VIOL">
+						<s:annotation>
+							<s:documentation>Traffic Violation</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="EventCode_7">
+				<s:annotation>
+					<s:documentation>The event described in terms of a code. i.e.  Delivery, Birth, Enrollment | Describes the result of the inquiry.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:EventCode_7_Content">
+						<s:attribute name="ListIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="ListAgencyIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="ListAgencyNameText" type="s:string" use="optional"/>
+						<s:attribute name="ListNameText" type="s:string" use="optional"/>
+						<s:attribute name="ListVersionIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageIdentifier" type="s:token" use="optional"/>
+						<s:attribute name="ListURI" type="s:string" use="optional"/>
+						<s:attribute name="ListSchemeURI" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="EventCode_7_Content">
+				<s:restriction base="s:token">
+					<s:enumeration value="Confirmed">
+						<s:annotation>
+							<s:documentation>Confirmed</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="Unconfirmed">
+						<s:annotation>
+							<s:documentation>Unconfirmed</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="EventCode_8">
+				<s:annotation>
+					<s:documentation>The event described in terms of a code. i.e.  Delivery, Birth, Enrollment | Describes the reason for an unconfirmed response.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:EventCode_8_Content">
+						<s:attribute name="ListIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="ListAgencyIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="ListAgencyNameText" type="s:string" use="optional"/>
+						<s:attribute name="ListNameText" type="s:string" use="optional"/>
+						<s:attribute name="ListVersionIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageIdentifier" type="s:token" use="optional"/>
+						<s:attribute name="ListURI" type="s:string" use="optional"/>
+						<s:attribute name="ListSchemeURI" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="EventCode_8_Content">
+				<s:restriction base="s:token">
+					<s:enumeration value="IDF">
+						<s:annotation>
+							<s:documentation>Incorrect Data Format</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="NAIC1">
+						<s:annotation>
+							<s:documentation>NAIC Code Not Submitted</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="NAIC2">
+						<s:annotation>
+							<s:documentation>System Cannot Locate NAIC</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="PKEY1">
+						<s:annotation>
+							<s:documentation>Policy Key Not Submitted</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="PKEY2">
+						<s:annotation>
+							<s:documentation>System Cannot Locate Policy Key Information</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="PKEY3">
+						<s:annotation>
+							<s:documentation>System Found Policy Key - Coverage on Verification Date Cannot Be Confirmed</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="PKEY4">
+						<s:annotation>
+							<s:documentation>System Found Policy Key - VIN Cannot Be Verified</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="POL1">
+						<s:annotation>
+							<s:documentation>System Cannot Locate Policy Information - Manual Search in Progress</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="SYSU">
+						<s:annotation>
+							<s:documentation>System Unavailable</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="UREQ">
+						<s:annotation>
+							<s:documentation>Unauthorized Requestor</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="VDT1">
+						<s:annotation>
+							<s:documentation>Coverage on Verification Date Cannot Be Confirmed</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="VDT2">
+						<s:annotation>
+							<s:documentation>Verification Date Not Submitted</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="VIN1">
+						<s:annotation>
+							<s:documentation>System Cannot Locate VIN</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="VIN2">
+						<s:annotation>
+							<s:documentation>System Found VIN - Coverage on Verification Date Cannot Be Confirmed</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="VIN3">
+						<s:annotation>
+							<s:documentation>System Found VIN - Policy Key Cannot Be Verified</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="VIN4">
+						<s:annotation>
+							<s:documentation>VIN Not Submitted</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="11">
+						<s:annotation>
+							<s:documentation>
+								System Cannot Locate Policy Information - Manual Search In Progress
+							</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="5">
+						<s:annotation>
+							<s:documentation>
+								Missing Verification Date
+							</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="8">
+						<s:annotation>
+							<s:documentation>
+								System Found Unique Key - No Coverage on Date Requested
+							</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="4">
+						<s:annotation>
+							<s:documentation>
+								Missing VIN
+							</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="10">
+						<s:annotation>
+							<s:documentation>
+								System Found VIN - Unique Key Cannot Be Verified
+							</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="2">
+						<s:annotation>
+							<s:documentation>
+								Missing Unique Key
+							</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="7">
+						<s:annotation>
+							<s:documentation>
+								System Cannot Locate Unique Key Information
+							</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="9">
+						<s:annotation>
+							<s:documentation>
+								System Found Unique Key - VIN Cannot Be Verified
+							</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="3">
+						<s:annotation>
+							<s:documentation>
+								Missing NAIC Code
+							</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="1">
+						<s:annotation>
+							<s:documentation>
+								Incorrect Data Format
+							</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="12">
+						<s:annotation>
+							<s:documentation>
+								System Unavailable
+							</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+					<s:enumeration value="6">
+						<s:annotation>
+							<s:documentation>
+								Unauthorized Requestor
+							</s:documentation>
+						</s:annotation>
+					</s:enumeration>
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="DateTimeText_2">
+				<s:annotation>
+					<s:documentation>Part of a complete date time combination. (i.e. Year as CCYY or Time as HHMM) | Specifies a year.</s:documentation>
+				</s:annotation>
+				<s:simpleContent>
+					<s:extension base="s0:DateTimeText_2_Content">
+						<s:attribute name="LanguageIdentifier" type="s:string" use="optional"/>
+						<s:attribute name="LanguageLocaleIdentifier" type="s:string" use="optional"/>
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="DateTimeText_2_Content">
+				<s:restriction base="s:string">
+					<s:minLength value="4"/>
+					<s:maxLength value="4"/>
+					<s:pattern value="\d\d\d\d"/>
+				</s:restriction>
+			</s:simpleType>
+			<!-- ==========  Common Derived Datatypes ========== -->
+			<s:simpleType name="JulianDate">
+				<s:restriction base="s:string">
+					<s:pattern value="\d\d\d\d\d\d\d"/>
+				</s:restriction>
+			</s:simpleType>
+			<s:simpleType name="JulianDayOfYear">
+				<s:restriction base="s:string">
+					<s:pattern value="\d\d\d"/>
+				</s:restriction>
+			</s:simpleType>
+			<!-- ==========  Publication Version Type ========== -->
+			<s:simpleType name="PublicationVersionType">
+				<s:restriction base="s:token">
+					<s:pattern value="\d\d\d\d\d\d\d\d"/>
+				</s:restriction>
+			</s:simpleType>
+		</s:schema>
+	</wsdl:types>
+	<wsdl:message name="VerifyInsuranceSoapIn">
+		<wsdl:part name="CoverageRequest" element="s0:CoverageRequest"/>
+	</wsdl:message>
+	<wsdl:message name="VerifyInsuranceSoapOut">
+		<wsdl:part name="VerifyInsuranceResult" element="s0:CoverageResponseDocument"/>
+	</wsdl:message>
+	<wsdl:portType name="VerifyServiceSoap">
+		<wsdl:operation name="VerifyInsurance">
+			<wsdl:input message="tns:VerifyInsuranceSoapIn"/>
+			<wsdl:output message="tns:VerifyInsuranceSoapOut"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="VerifyServiceSoap" type="tns:VerifyServiceSoap">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="VerifyInsurance">
+			<soap:operation soapAction="http://www.iicmva.com/VerifyInsurance" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="VerifyServiceSoap12" type="tns:VerifyServiceSoap">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="VerifyInsurance">
+			<soap12:operation soapAction="http://www.iicmva.com/VerifyInsurance" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="VerifyService">
+		<wsdl:port name="VerifyServiceSoap" binding="tns:VerifyServiceSoap">
+			<soap:address location="https://localhost.org/verify-vehicle"/>
+		</wsdl:port>
+		<wsdl:port name="VerifyServiceSoap12" binding="tns:VerifyServiceSoap12">
+			<soap12:address location="https://localhost.org/verify-vehicle/12"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

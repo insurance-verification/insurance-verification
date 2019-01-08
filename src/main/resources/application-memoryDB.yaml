@@ -1,0 +1,26 @@
+﻿verificationsystem:
+  db:
+    table-name: Vehicle
+    vehicle-query: select * from Vehicle LIMIT ? OFFSET ?
+    vehicle-count-query: SELECT count(*) FROM Vehicle
+    read-batch-size: 5000
+    datasource:
+      url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      initialize: true
+      password: sa
+      driver-class-name: org.h2.Driver
+      schema:
+        - classpath:db/schema.sql
+      data:
+        - classpath:db/data.sql
+  audit:
+    request-table-name: IVS_AuditRequest
+    response-table-name: IVS_AuditResponse
+    datasource:
+      url: jdbc:h2:mem:test2;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password: sa
+      driver-class-name: org.h2.Driver
+      schema:
+        - file:./audit-schema.sql
