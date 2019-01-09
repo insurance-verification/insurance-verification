@@ -1,5 +1,10 @@
 .gradle
 /build/
+/logs/
+/vehicles/
+/LOGS_IS_UNDEFINED/
+hs_err*
+replay*
 
 # Ignore Gradle GUI config
 gradle-app.setting
