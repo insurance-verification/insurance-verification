@@ -87,8 +87,8 @@ public class VehicleValidationServiceTest {
     @Test
     public void coverage_on_verification_date_cannot_be_confirmed() {
         VehicleInfo vehicleInfo = new VehicleInfo();
-        vehicleInfo.setPolicyNumber("p1");
-        vehicleInfo.setVin("v1");
+        vehicleInfo.setPolicyNumber("v1");
+        vehicleInfo.setVin("p1");
         vehicleInfo.setVerificationDate(LocalDateTime.of(2017, 1, 1, 1, 1));
         assertError(validator.validate(vehicleInfo), "8", "PKEY3");
     }
@@ -96,7 +96,7 @@ public class VehicleValidationServiceTest {
     @Test
     public void vin_cannot_be_verified() {
         VehicleInfo vehicleInfo = new VehicleInfo();
-        vehicleInfo.setPolicyNumber("p1");
+        vehicleInfo.setPolicyNumber("v1");
         vehicleInfo.setVin("Z");
         assertError(validator.validate(vehicleInfo), "9", "PKEY4");
     }
@@ -105,7 +105,7 @@ public class VehicleValidationServiceTest {
     public void policy_key_cannot_be_verified() {
         VehicleInfo vehicleInfo = new VehicleInfo();
         vehicleInfo.setPolicyNumber("z1");
-        vehicleInfo.setVin("v1");
+        vehicleInfo.setVin("p1");
         assertError(validator.validate(vehicleInfo), "10", "VIN3");
 
     }

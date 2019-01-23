@@ -1,4 +1,4 @@
-﻿verificationsystem:
+verificationsystem:
   db:
     table-name: Vehicle
     vehicle-query: select * from Vehicle LIMIT ? OFFSET ?

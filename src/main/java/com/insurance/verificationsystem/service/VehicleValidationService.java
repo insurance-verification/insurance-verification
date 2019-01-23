@@ -103,11 +103,16 @@ public class VehicleValidationService {
         }
         // System Found Policy Key - VIN Cannot Be Verified
         if(locateVehicle && hasVin) {
-            Vehicle v = vehicle.get();
-            boolean vinVerified = vehicleInfo.getVin().equals(v.getVin());
-            if(!vinVerified) {
+        	if(vehicle.empty() != null) {
                 results.add(new ValidationResult("9", "PKEY4"));
-            }
+        	}
+        	else {
+              Vehicle v = vehicle.get();      
+              boolean vinVerified = vehicleInfo.getVin().equals(v.getVin());
+              if(!vinVerified) {
+                results.add(new ValidationResult("9", "PKEY4"));
+              }
+           }
         }
         // System Found VIN - Policy Key Cannot Be Verified
         if(hasVin && locateVin && !locateVehicle) {

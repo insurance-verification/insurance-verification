@@ -79,6 +79,6 @@ publishing {
 bootRun {
   systemProperties = System.properties
     if (project.hasProperty('args')) {
-        args project.args.split(',')
+        args project.args.split(',')       
     }
 }

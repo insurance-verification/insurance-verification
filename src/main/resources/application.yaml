@@ -1,4 +1,4 @@
-﻿verificationsystem:
+verificationsystem:
   service:
     prefix: ws
   request:
@@ -16,12 +16,20 @@
       disk_mb: 50
     storage_path: .
   db:
-    table-name: Vehicle1
-    vehicle-query: 
-    vehicle-count-query: 
+    table-name: Vehicle
+    vehicle-query: select * from Vehicle LIMIT ? OFFSET ?
+    vehicle-count-query: SELECT count(*) FROM Vehicle
+    read-batch-size: 5000
     datasource:
-      hikari:
-        connection-test-query:
+      url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE
+      username: sa1
+      initialize: true
+      password: sa1
+      driver-class-name: org.h2.Driver
+      schema:
+        - classpath:/schema.sql
+      data:
+        - classpath:/data.sql
   reload:
     # reload automatically at 11:30 pm daily
     #cron: 30 23 * * * *
@@ -36,10 +44,22 @@
     internal-trusted-ip: 127.0.0.1, 0:0:0:0:0:0:0:1, /10[.]0[.]\d+[.]\d+/
     #trusted-ip: 127.0.0.1, 0:0:0:0:0:0:0:1, 10.0.15.47
   audit:
-    request-table-name: IVS_AuditRequest
-    response-table-name: IVS_AuditResponse
+    request-table-name: AuditRequest
+    response-table-name: AuditResponse
+    datasource:
+      url: jdbc:h2:mem:test2;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password: sa
+      driver-class-name: org.h2.Driver
+      schema:
+        - classpath:/db/audit-schema.sql
   shutdown:
     allowed: 127.0.0.1,::1,0:0:0:0:0:0:0:1,10.254.209.101,10.254.209.102   
 jasypt:
   encryptor:
     password: Choose the right one:)
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console

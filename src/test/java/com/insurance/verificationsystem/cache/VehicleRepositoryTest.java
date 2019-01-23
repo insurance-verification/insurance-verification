@@ -35,8 +35,8 @@ public class VehicleRepositoryTest {
         expected.setPolicyNumber("A1000");
         expected.setVin("AB101CD");
         expected.setRemoved(false);
-        expected.setEffectiveDate(LocalDateTime.of(2018, 1, 1, 0, 0, 0));
-        expected.setExpireDate(LocalDateTime.of(2018, 5, 20, 0, 0, 0));
+        expected.setEffectiveDate(LocalDateTime.of(2018, 1, 1, 8, 0, 0));
+        expected.setExpireDate(LocalDateTime.of(2018, 5, 20, 20, 0, 0));
 
         assertEquals(expected, value);
     }

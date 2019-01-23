@@ -6,6 +6,7 @@ import org.ehcache.config.builders.CacheManagerBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.security.Policy;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
@@ -48,18 +49,18 @@ public class VehiclesCacheLoaderTest {
 
         VehiclesCacheLoader vehiclesCacheLoader =
                 new VehiclesCacheLoader(vehicles, policies, new ArrayCacheValuesProvider<>(v1, v2, v3), lastUpdatedTimeProvider);
-
+        
         vehiclesCacheLoader.reload();
+        
+        assertTrue(vehicles.containsKey("v1"));
+        assertTrue(vehicles.containsKey("v2"));
+        assertTrue(vehicles.containsKey("v3"));
 
-        assertTrue(vehicles.containsKey("p1"));
-        assertTrue(vehicles.containsKey("p2"));
-        assertTrue(vehicles.containsKey("p3"));
+        assertTrue(policies.containsKey("p1"));
+        assertTrue(policies.containsKey("p2"));
+        assertTrue(policies.containsKey("p3"));
 
-        assertTrue(policies.containsKey("v1"));
-        assertTrue(policies.containsKey("v2"));
-        assertTrue(policies.containsKey("v3"));
-
-        assertEquals(v1,vehicles.get("p1"));
+        assertEquals(v1,vehicles.get("v1"));
     }
 
     @Test
@@ -75,9 +76,9 @@ public class VehiclesCacheLoaderTest {
         VehiclesCacheLoader vehiclesCacheLoader =
                 new VehiclesCacheLoader(vehicles, policies, new ArrayCacheValuesProvider<>(v1), lastUpdatedTimeProvider);
         vehiclesCacheLoader.reload();
-
-        assertFalse(vehicles.containsKey("p1"));
-        assertFalse(policies.containsKey("v1"));
+        
+        assertFalse(vehicles.containsKey("p2"));
+        assertFalse(policies.containsKey("v2"));
     }
 
     public static Vehicle create(Integer id, String policyNumber, String vin) {
