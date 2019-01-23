@@ -1,28 +1,32 @@
 package com.insurance.verificationsystem.audit;
 
-import com.insurance.verificationsystem.config.AuditConfig;
-import com.insurance.verificationsystem.service.ValidationResult;
-import com.insurance.verificationsystem.service.VehicleInfo;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.h2.util.IOUtils;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.insurance.verificationsystem.config.AuditConfig;
+import com.insurance.verificationsystem.service.ValidationResult;
+import com.insurance.verificationsystem.service.VehicleInfo;
 
 //@JdbcTest
 @RunWith(SpringRunner.class)
+@ActiveProfiles("memoryDB")
 @SpringBootTest(classes = { AuditConfig.class})
 public class AuditRepositoryTest {
 
@@ -44,6 +48,9 @@ public class AuditRepositoryTest {
     @Before
     public void init() throws Exception {
         jdbcTemplate=auditConfig.auditJdbcTemplate();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        IOUtils.copy(AuditRepositoryTest.class.getResourceAsStream("/db/audit-schema.sql"), out);
+        jdbcTemplate.batchUpdate(new String(out.toByteArray()));
         auditRepository = new AuditRepository(jdbcTemplate, AUDIT_REQUEST_TABLE_NAME, AUDIT_RESPONSE_TABLE_NAME);
     }
 
