@@ -18,8 +18,7 @@ public class CustomErrorController implements ErrorController {
    public String handleError(HttpServletRequest request) {
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
         Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
-        System.out.print("Error occured..");
-       
+        // Need to wrtie the code according to the status code            
         return "error.html";
 
     }
